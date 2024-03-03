@@ -44,7 +44,7 @@ CREATE TABLE UserCompanyReview (
     PRIMARY KEY (company_id, user_id)
 );
 
-// item_type makes sure it is only service or product
+--item_type makes sure it is only service or product
 CREATE TABLE Item (
     item_id BIGINT PRIMARY KEY,
     item_type VARCHAR(50) CHECK (item_type IN ('service', 'product')),
@@ -54,7 +54,7 @@ CREATE TABLE Item (
     item_picture VARCHAR(255)
 );
 
-// making sure discount types are a certain type
+-- making sure discount types are a certain type
 CREATE TABLE Discount (
     discount_id BIGINT PRIMARY KEY,
     discount_type VARCHAR(50) CHECK (discount_type IN ('freebie', 'percentage coupon', 'fixed coupon', 'other')),
@@ -88,7 +88,7 @@ CREATE TABLE Employee (
     zip_code VARCHAR(20)
 );
 
-// charge type makes sure only anual and checkin fees
+-- charge type makes sure only anual and checkin fees
 CREATE TABLE CompanyTransaction (
     transaction_id BIGINT PRIMARY KEY,
     transaction_date DATE,
