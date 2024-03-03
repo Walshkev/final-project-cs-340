@@ -35,7 +35,7 @@ CREATE TABLE CompanyLocation (
     phone_nbr VARCHAR(20)
 );
 
-// rating score makes sure it is between 1 and 0
+-- rating score makes sure it is between 1 and 0
 CREATE TABLE UserCompanyReview (
     company_id INT REFERENCES Company(company_id),
     user_id INT REFERENCES Users(user_id),
