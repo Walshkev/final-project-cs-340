@@ -10,6 +10,7 @@ CREATE TABLE Users (
     zip_code VARCHAR(20)
 );
 
+
 CREATE TABLE UserInterests (
     user_id INT REFERENCES Users(user_id),
     interest VARCHAR(50) NOT NULL,
@@ -134,3 +135,12 @@ CREATE TABLE UserCompanyPreference (
     preference_company_id INT REFERENCES Company(company_id),
     PRIMARY KEY (user_id, preference_company_id)
 );
+
+
+
+-- Insert into user( user_id, user_email, password, first_name, last_name , street_address,city,state,zip_code)
+-- VALUES(42069 ,'Kevin','Walsh', 'MrCoolGuy' , CURRENT_DATE,80000, (SELECT dept_nbr FROM department WHERE dept_name = 'RESEARCH'));
+
+
+
+
