@@ -1,3 +1,5 @@
+create database protst;
+
 CREATE TABLE Users (
     user_id BIGINT PRIMARY KEY,
     user_email VARCHAR(255) UNIQUE NOT NULL,
