@@ -162,6 +162,11 @@ WITH duplicates_cte AS (
 DELETE FROM tempusers
 WHERE email IN (SELECT email FROM duplicates_cte WHERE row_num > 1);
 
+INSERT INTO Users (user_email, first_name, last_name, street_address, city, state)
+SELECT email, first_name, last_name, street_address, city_address, state_address
+FROM tempusers;
+
+
 -- products
 
 CREATE TABLE tempproducts (
