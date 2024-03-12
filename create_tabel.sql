@@ -145,7 +145,7 @@ CREATE TABLE tempusers (
 
 -- users
 
-\copy tempusers(first_name, last_name, username, email, street_address, city_address, state_address) FROM 'C:/Users/Braxton/Downloads/files/files/users.csv' WITH DELIMITER ',' CSV HEADER;
+\copy tempusers(first_name, last_name, username, email, street_address, city_address, state_address) FROM 'C:\Users\kcw13\OneDrive\Documents\CSwinter2024\data base\final project\files\users.csv' WITH DELIMITER ',' CSV HEADER;
 
 DELETE FROM tempusers
 WHERE email NOT LIKE '%@%' OR (email NOT LIKE '%.com' AND email NOT LIKE '%.edu');
@@ -173,7 +173,8 @@ CREATE TABLE tempproducts (
     product_category VARCHAR(50)
 );
 
-\copy tempproducts(product_id, product_name, brand_company_name, product_category) FROM 'C:/Users/Braxton/Downloads/files/files/products.csv' WITH DELIMITER '|' CSV HEADER;
+
+\copy tempproducts(product_id, product_name, brand_company_name, product_category) FROM 'C:\Users\kcw13\OneDrive\Documents\CSwinter2024\data base\final project\files\products.csv' WITH DELIMITER '|' CSV HEADER;
 
 DELETE FROM tempproducts
 WHERE product_id IS NULL OR product_id = '' OR
@@ -205,7 +206,7 @@ CREATE TABLE tempserv (
     service_category VARCHAR(50)
 );
 
-\copy tempserv(service_id, service_name, brand_company_name, service_category) FROM 'C:/Users/Braxton/Downloads/files/files/services.csv' WITH DELIMITER ',' CSV HEADER;
+\copy tempserv(service_id, service_name, brand_company_name, service_category) FROM 'C:\Users\kcw13\OneDrive\Documents\CSwinter2024\data base\final project\files\services.csv' WITH DELIMITER ',' CSV HEADER;
 
 WITH duplicates_cte AS (
     SELECT service_id,
@@ -235,3 +236,94 @@ WHERE company_name IN (SELECT company_name FROM duplicates_cte WHERE row_num > 1
 INSERT INTO Item (item_id, item_type, item_name)
 SELECT service_id, 'service', service_name
 FROM tempserv;
+
+
+
+
+CREATE TABLE ItemArchive (
+    archive_id SERIAL PRIMARY KEY,
+    item_id VARCHAR(20) REFERENCES Item(item_id),
+    attribute_name VARCHAR(50),
+    old_value TEXT,
+    new_value TEXT,
+    update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+
+
+
+
+
+
+-- -- 
+-- CREATE OR REPLACE FUNCTION item_update_trigger()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     IF TG_OP = 'UPDATE' THEN
+--         INSERT INTO ItemArchive (item_id, attribute_name, old_value, new_value)
+--         VALUES (NEW.item_id, TG_ARGV[0], OLD.*::text, NEW.*::text);
+--     END IF;
+--     RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE TRIGGER item_update
+-- AFTER UPDATE ON Item
+-- FOR EACH ROW
+-- EXECUTE FUNCTION item_update_trigger('item_name');
+
+
+
+-- Additional Indexes
+
+-- -- Users table
+-- CREATE INDEX idx_users_email ON Users (user_email);
+-- CREATE INDEX idx_users_last_name ON Users (last_name);
+
+-- -- UserInterests table
+-- CREATE INDEX idx_user_interests_user_id ON UserInterests (user_id);
+
+-- -- Company table
+-- CREATE INDEX idx_company_name ON Company (company_name);
+
+-- -- CompanyLocation table
+-- CREATE INDEX idx_company_location_city ON CompanyLocation (city);
+
+-- -- UserCompanyReview table
+-- CREATE INDEX idx_user_company_review_user_id ON UserCompanyReview (user_id);
+
+-- -- Item table
+-- CREATE INDEX idx_item_item_type ON Item (item_type);
+
+-- -- Discount table
+-- CREATE INDEX idx_discount_discount_type ON Discount (discount_type);
+
+-- -- UserCheckin table
+-- CREATE INDEX idx_user_checkin_user_id ON UserCheckin (user_id);
+
+-- -- Employee table
+-- CREATE INDEX idx_employee_email ON Employee (email);
+
+-- -- CompanyTransaction table
+-- CREATE INDEX idx_company_transaction_transaction_date ON CompanyTransaction (transaction_date);
+
+-- -- CompanyTransactionCheckin table
+-- CREATE INDEX idx_company_transaction_checkin_transaction_id ON CompanyTransactionCheckin (transaction_id);
+
+-- -- CompanyItem table
+-- CREATE INDEX idx_company_item_company_id ON CompanyItem (company_id);
+
+-- -- UserLocationPreference table
+-- CREATE INDEX idx_user_location_preference_user_id ON UserLocationPreference (user_id);
+
+-- -- UserItemPreference table
+-- CREATE INDEX idx_user_item_preference_user_id ON UserItemPreference (user_id);
+
+-- -- UserCompanyPreference table
+-- CREATE INDEX idx_user_company_preference_user_id ON UserCompanyPreference (user_id);
+
+-- -- ItemArchive table
+-- CREATE INDEX idx_item_archive_item_id ON ItemArchive (item_id);
