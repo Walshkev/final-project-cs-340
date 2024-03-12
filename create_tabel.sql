@@ -164,11 +164,6 @@ WITH duplicates_cte AS (
 DELETE FROM tempusers
 WHERE email IN (SELECT email FROM duplicates_cte WHERE row_num > 1);
 
-INSERT INTO Users (user_email, first_name, last_name, street_address, city, state)
-SELECT email, first_name, last_name, street_address, city_address, state_address
-FROM tempusers;
-
-
 -- products
 
 CREATE TABLE tempproducts (
@@ -197,6 +192,7 @@ INSERT INTO Company (company_name)
 SELECT DISTINCT brand_company_name
 FROM tempproducts
 WHERE brand_company_name IS NOT NULL;
+
 
 INSERT INTO Item (item_id, item_type, item_name)
 SELECT product_id, 'product', product_name
