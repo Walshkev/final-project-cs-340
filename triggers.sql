@@ -33,3 +33,4 @@ SET item_type = 'service',
     item_price = 0,
     item_picture = ''
 WHERE item_id = 'B00029V00I';
+--B00029V00I is a item_id 
