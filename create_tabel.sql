@@ -70,7 +70,7 @@ CREATE TABLE UserCheckin (
     checkin_date DATE,
     user_id INT REFERENCES Users(user_id),
     company_id INT REFERENCES Company(company_id),
-    item_id INT REFERENCES Item(item_id),
+    item_id VARCHAR REFERENCES Item(item_id),
     discount_id INT REFERENCES Discount(discount_id),
     CONSTRAINT uq_user_checkin UNIQUE (user_id, company_id, item_id, checkin_date)
 );
@@ -110,7 +110,7 @@ CREATE TABLE CompanyTransactionCheckin (
 
 CREATE TABLE CompanyItem (
     company_id INT REFERENCES Company(company_id),
-    item_id INT REFERENCES Item(item_id),
+    item_id VARCHAR REFERENCES Item(item_id),
     is_discounted BOOLEAN,
     discount_id INT REFERENCES Discount(discount_id),
     PRIMARY KEY (company_id, item_id)
@@ -125,7 +125,7 @@ CREATE TABLE UserLocationPreference (
 
 CREATE TABLE UserItemPreference (
     user_id INT REFERENCES Users(user_id),
-    item_id INT REFERENCES Item(item_id),
+    item_id VARCHAR REFERENCES Item(item_id),
     PRIMARY KEY (user_id, item_id)
 );
 
