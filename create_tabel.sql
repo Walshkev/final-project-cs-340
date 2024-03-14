@@ -2,6 +2,7 @@
 
 CREATE DATABASE final;
 
+
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY,
     user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -134,6 +135,5 @@ CREATE TABLE UserCompanyPreference (
     preference_company_id INT REFERENCES Company(company_id),
     PRIMARY KEY (user_id, preference_company_id)
 );
-
 
 
